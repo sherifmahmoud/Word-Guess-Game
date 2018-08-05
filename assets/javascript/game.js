@@ -1,5 +1,5 @@
 var game = {
-    animalDictionary: ["alligator", "ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "chimpanzee", "cow", "crocodile", "deer", "dog", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", "hamster", "hippopotamus", "horse", "kangaroo", "kitten", "lion", "lobster", "monkey", "octopus", "owl", "panda", "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "spider", "squirrel", "tiger", "turtle", "wolf", "zebra"],
+    animalDictionary: ["alligator", "ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "chimpanzee", "cow", "crocodile", "deer", "dog", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", "gorilla", "groundhog", "hamster", "hippopotamus", "hog", "horse", "kangaroo", "kitten", "lion", "lobster", "monkey", "octopus", "owl", "panda", "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "spider", "squirrel", "tiger", "turtle", "wolf", "zebra"],
     gamesPlayed: 0,
     gamesWon: 0,
     gamesLost: 0,
@@ -79,6 +79,10 @@ document.addEventListener("keydown", function (event) {
                 if (game.getRemainingWrongGuesses() === 0) {//the user LOST
                     game.gamesLost++;
                     isGameStarted = false;//game ended
+                    //reveal the solution
+                    for (var i = 0; i < game.secretWord.length; i++) {
+                        game.correctLetters[i] = game.secretWord[i];
+                    }
                     game.gamesPlayed++;
                 }
                 updateDisplay();
