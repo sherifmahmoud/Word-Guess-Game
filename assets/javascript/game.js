@@ -6,11 +6,15 @@ var game = {
     secretWord: "",
     correctLetters: [],//user guesses so far, the starts with all dashes "-" and gets filled with user corret guesses as game progresses
     wrongLetters: [],
-    maxWrongGuesses: 8,
+    maxWrongGuesses: 6,
+    isUserWon: false,
+    isUserLost: false,
     resetGame: function () {
         this.secretWord = "";
         this.correctLetters = [];
         this.wrongLetters = [];
+        this.isUserWon = false;
+        this.isUserLost = false;
     },
     chooseSecretWord: function () {
         //generate a random number between 0 and length of animals list-1
@@ -42,8 +46,36 @@ var game = {
     isWordCompleted: function () {
         //if the correct Letters array has no dashes, then the user guessed all letters correctly
         return !this.correctLetters.includes("-");
+    },
+    guessLetter: function (letter) {
+        //check letter against correct and wrong guesses
+        if (!this.isLetterGuessedBefore(letter)) {
+            var index = this.secretWord.indexOf(letter);
+            if (index !== -1) {//if it's a correct guess
+                //replace the dashes in the user guess word with the letter in the correct position(s)
+                this.placeLetterInCorrectLettersArray(letter);
+                //if the user guessed all the word correctly
+                if (this.isWordCompleted()) {//the user WON!!!
+                    this.gamesWon++;
+                    this.isUserWon = true;
+                    game.gamesPlayed++;
+
+                }
+                return true;//right guess 
+            } else {
+                //add the letter to the wrong guesses list
+                this.wrongLetters.push(letter);
+                //check the number of remaining guesses
+                if (this.getRemainingWrongGuesses() === 0) {//the user LOST
+                    game.gamesLost++;
+                    this.isUserLost = true;
+                    game.gamesPlayed++;
+                    return false;//wrong guess
+                }
+            }
+        }
     }
-};
+}
 var isGameStarted = false;
 document.addEventListener("keydown", function (event) {
     //remove start prompt message
@@ -57,57 +89,16 @@ document.addEventListener("keydown", function (event) {
         //display the empty user guess word with dashes
         updateDisplay();
 
-    } else {//otherwise, start interpreting key presses as  user guesses
+    } else {//otherwise, start interpreting key presses as user guesses
         var letter = event.key.toUpperCase();
-        //check if the letter is not used before
-        if (!game.isLetterGuessedBefore(letter)) {
-            var index = game.secretWord.indexOf(letter);
-            if (index !== -1) {//if it's a correct guess
-                //replace the dashes in the user guess word with the letter in the correct position(s)
-                game.placeLetterInCorrectLettersArray(letter);
-                //if the user guessed all the word correctly
-                if (game.isWordCompleted()) {//the user WON!!!
-                    game.gamesWon++;
-                    isGameStarted = false;//game ended
-                    game.gamesPlayed++;
-                }
-                updateDisplay();
-            } else {
-                //add the letter to the wrong guesses list
-                game.wrongLetters.push(letter);
-                //check the number of remaining guesses
-                if (game.getRemainingWrongGuesses() === 0) {//the user LOST
-                    game.gamesLost++;
-                    isGameStarted = false;//game ended
-                    //reveal the solution
-                    for (var i = 0; i < game.secretWord.length; i++) {
-                        game.correctLetters[i] = game.secretWord[i];
-                    }
-                    game.gamesPlayed++;
-                }
-                updateDisplay();
 
-            }
+        game.guessLetter(letter);
+        if (game.isUserLost || game.isUserWon) {
+            isGameStarted = false;
         }
+        updateDisplay();
+
     }
-
-
-
-
-
-    //--increment the correct guesses counter
-    //--if all the letters guessed correctly:
-    //----display a message that the user Won.
-    //----increment the number of games won and the number of the total played games
-    //--update the display
-    //if the user guessed a wrong letter
-    //--add the letter to the list of wrong guesses
-    //--decrement the number of remaining incorrect guesses
-    //------If the number wrong guesses became zero
-    //---------Display a message that the user lost the game
-    //---------Increment the number of losses
-    //reset the game and start all over
-
 });
 function updateDisplay() {
 
@@ -124,5 +115,29 @@ function updateDisplay() {
     document.getElementById("current_guess").textContent = game.correctLetters.join(" ");
     document.getElementById("wrong_letters").textContent = game.wrongLetters.join(",");
     document.getElementById("remaining_guesses").textContent = "" + game.getRemainingWrongGuesses();
+
+    if (isGameStarted) {
+        document.getElementById("image").style.display = "inline";
+    }
+    if (game.isUserWon || game.isUserLost) {
+        if (game.isUserWon) {
+            document.getElementById("image").setAttribute("src", "assets/images/" + "winner" + ".jpg");
+
+        }
+        if (game.isUserLost) {
+            document.getElementById("image").setAttribute("src", "assets/images/" + "loser" + ".jpg");
+            //Reveal the word
+            var secretWord_array = [];
+            for (var i = 0; i < game.secretWord.length; i++) {
+                secretWord_array.push(game.secretWord[i]);
+            }
+            document.getElementById("current_guess").textContent = secretWord_array.join(" ");
+        }
+    } else {
+        document.getElementById("image").setAttribute("src", "assets/images/" + game.wrongLetters.length + ".jpg");
+    }
+
+
+
 
 }
