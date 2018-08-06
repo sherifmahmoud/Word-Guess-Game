@@ -4,8 +4,8 @@ var game = {
     gamesWon: 0,
     gamesLost: 0,
     secretWord: "",
-    correctLetters: [],//user guesses so far, the starts with all dashes "-" and gets filled with user corret guesses as game progresses
-    wrongLetters: [],
+    correctLetters: [],//user guesses so far, the list starts with all dashes "-" and gets filled with user corret guesses as game progresses
+    wrongLetters: [],//list of wrong letter guesses
     maxWrongGuesses: 6,
     isUserWon: false,
     isUserLost: false,

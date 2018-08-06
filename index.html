@@ -6,40 +6,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Word Guess Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <script src="assets/javascript/game.js"></script>
 </head>
 
 <body>
+    <div id="game">
+        <header>
+            <h1>Word Guess Game (Animals)</h1>
+            <h2 id="prompt">Press Any Key to Begin a New Game...</h2>
+        </header>
 
-    <header>
-        <h1>Word Guess Game</h1>
-    </header>
-    <h2 id="prompt">Press Any Key to Begin a New Game...</h2>
-    <div id="games_status">
-        <h2>Game Status:</h2>
-        <h3>Games Played:
-            <label id="games_played"></label>
-        </h3>
-        <h3>Games Won:
-            <label id="games_won"></label>
-        </h3>
-        <h3>Games Lost:
-            <label id="games_lost"></label>
-        </h3>
-    </div>
-    <div id="game_progress">
-        <h2>Game Progress</h2>
-        <img id="image" src="">
-        <h3>Current Guess:
-            <label id="current_guess"></label>
-        </h3>
-        <h3>Wrong Guesses:
-            <label id="wrong_letters"></label>
-        </h3>
-        <h3>remaining Guesses:
-            <label id="remaining_guesses"></label>
-        </h3>
+        <div id="games_status">
+            <h2>Game Status:</h2>
+            <h3>Games Played:
+                <label id="games_played"></label>
+            </h3>
+            <h3>Games Won:
+                <label id="games_won"></label>
+            </h3>
+            <h3>Games Lost:
+                <label id="games_lost"></label>
+            </h3>
+        </div>
+        <div id="game_progress">
+            <h2>Game Progress</h2>
+            <img id="image" src="">
+            <h3>Current Guess:
+                <label id="current_guess"></label>
+            </h3>
+            <h3>Wrong Guesses:
+                <label id="wrong_letters"></label>
+            </h3>
+            <h3>remaining Guesses:
+                <label id="remaining_guesses"></label>
+            </h3>
+        </div>
     </div>
 </body>
 

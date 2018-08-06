@@ -1,3 +1,23 @@
 img{
     display:none;
 }
+header{
+    background-color: aquamarine;
+    border-radius: 25px;
+    background-image: url("https://images.template.net/wp-content/uploads/2015/08/Great-Premium-Paper-Background-Download.png");
+}
+#games_status{
+    background-color: blueviolet;
+    border-radius: 25px;
+    background-image: url("https://images.template.net/wp-content/uploads/2015/08/Extravagant-Premium-Paper-Background-for-You.png");
+}
+#game_progress{
+    background-color: darkgrey;
+    border-radius: 25px;
+    background-image: url("https://cdn.pixabay.com/photo/2017/01/18/15/51/paper-1990111__340.jpg");
+}
+
+#game{
+    width:700px;
+    height: 500px;
+}
